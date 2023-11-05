@@ -1,5 +1,6 @@
 package util
 
+import com.google.gson.GsonBuilder
 import jakarta.servlet.http.HttpServletResponse
 
 object ExceptionHandler {
@@ -8,7 +9,7 @@ object ExceptionHandler {
         resp.status = statusCode
 
         val responseMessage = mapOf("message" to message)
-        val json = JsonBuilder.gson.toJson(responseMessage)
+        val json = GsonBuilder().create().toJson(responseMessage)
 
         return resp.writer.write(json)
     }

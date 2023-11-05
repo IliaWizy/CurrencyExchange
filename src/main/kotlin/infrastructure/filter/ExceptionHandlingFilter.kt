@@ -1,6 +1,6 @@
-package filter
+package infrastructure.filter
 
-import exception.ApiException
+import interfaces.rest.exception.ApiException
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest

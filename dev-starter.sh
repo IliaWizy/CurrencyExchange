@@ -9,19 +9,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-
-if [ -f .env.dev ]; then
-  source .env.dev
-else
-  source .env
-fi
-
 echo "Запуск Docker-контейнера"
 
 docker run -d -p 5432:5432 --rm \
-  -e POSTGRES_DB="$DB_NAME" \
-  -e POSTGRES_USER="$DB_USERNAME" \
-  -e POSTGRES_PASSWORD="$DB_PASSWORD" \
+  -e POSTGRES_DB="currency_exchange_db" \
+  -e POSTGRES_USER="wizy_user" \
+  -e POSTGRES_PASSWORD="1234567" \
   exchange-db:latest
 
 if [ $? -ne 0 ]; then

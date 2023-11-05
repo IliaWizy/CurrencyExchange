@@ -19,6 +19,9 @@ dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
 
+//    implementation("org.mapstruct:mapstruct:1.5.5.Final")
+//    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+
 }
 
 tasks.test {
@@ -26,7 +29,7 @@ tasks.test {
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(17)
 }
 
 //application {

@@ -1,0 +1,404 @@
+{
+	"info": {
+		"_postman_id": "6457ea86-bc8a-4e40-aca6-cd132d4d6549",
+		"name": "CurrencyExchange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14065580"
+	},
+	"item": [
+		{
+			"name": "exchange",
+			"item": [
+				{
+					"name": "ok 200",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/exchange?from=USD&to=EUR&amount=10.00",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"exchange"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "USD"
+								},
+								{
+									"key": "to",
+									"value": "EUR"
+								},
+								{
+									"key": "amount",
+									"value": "10.00"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "currency",
+			"item": [
+				{
+					"name": "Получение EUR (200)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/currency/EUR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currency",
+								"EUR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение EUR (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Код валюты отсутствует в адресе\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/currency",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currency"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение EUR (404)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Валюта не найдена\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v2",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/currency/RRR",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currency",
+								"RRR"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "curencies",
+			"item": [
+				{
+					"name": "Добавление валюты (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Деревянненький",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "RUB",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "p.",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/currencies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление валюты (400)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Отсутствует нужное поле формы\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Euro",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "EUR",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/currencies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Добавление валюты (409)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Валюта с таким кодом уже существует\", function () {",
+									"    pm.response.to.have.status(409);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "Euro",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "EUR",
+									"type": "text"
+								},
+								{
+									"key": "sign",
+									"value": "€",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/currencies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Список валют (200)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response includes currency with id 1 and id 2\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    ",
+									"    var usdCurrency = jsonData.find(currency => currency.id === 1);",
+									"    var eurCurrency = jsonData.find(currency => currency.id === 2);",
+									"",
+									"    ",
+									"    pm.expect(usdCurrency).to.be.an('object', \"Expected to find currency object with id 1\");",
+									"    pm.expect(usdCurrency.name).to.eql(\"USD\");",
+									"    pm.expect(usdCurrency.code).to.eql(\"United States dollar\");",
+									"    pm.expect(usdCurrency.sign).to.eql(\"$\");",
+									"",
+									"    ",
+									"    pm.expect(eurCurrency).to.be.an('object', \"Expected to find currency object with id 2\");",
+									"    pm.expect(eurCurrency.name).to.eql(\"EUR\");",
+									"    pm.expect(eurCurrency.code).to.eql(\"Euro\");",
+									"    pm.expect(eurCurrency.sign).to.eql(\"€\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "API-Version",
+								"value": "v1",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/currencies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"currencies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
