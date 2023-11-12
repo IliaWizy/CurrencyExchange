@@ -32,6 +32,6 @@ kotlin {
     jvmToolchain(17)
 }
 
-//application {
+//service {
 //    mainClass.set("MainKt")
 //}

@@ -1,16 +1,16 @@
-package infrastructure.filter
+package controller.filter
 
-import interfaces.rest.exception.ApiException
+import com.google.gson.Gson
+import controller.exception.ApiException
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
 import jakarta.servlet.ServletRequest
 import jakarta.servlet.ServletResponse
 import jakarta.servlet.annotation.WebFilter
 import jakarta.servlet.http.HttpServletResponse
-import util.ExceptionHandler.sendErrorAsJson
 
 @WebFilter("/*")
-class ExceptionHandlingFilter : Filter {
+class ExceptionFilter : Filter {
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
         try {
             chain?.doFilter(request, response)
@@ -18,10 +18,16 @@ class ExceptionHandlingFilter : Filter {
             sendErrorAsJson(
                 response as HttpServletResponse, e.message ?: "Unknown error", e.status
             )
-        }/* catch (e: Throwable) {
-            sendErrorAsJson(
-                response as HttpServletResponse, "Internal server error", HttpServletResponse.SC_INTERNAL_SERVER_ERROR
-            )
-        }*/
+        }
+    }
+
+    private fun sendErrorAsJson(response: HttpServletResponse, message: String, status: Int) {
+        response.contentType = "application/json"
+        response.characterEncoding = "UTF-8"
+        response.status = status
+        response.writer.use { writer ->
+            val errorResponse = mapOf("error" to message, "status" to status)
+            writer.print(Gson().toJson(errorResponse))
+        }
     }
 }

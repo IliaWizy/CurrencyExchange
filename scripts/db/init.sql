@@ -13,10 +13,10 @@ GRANT ALL PRIVILEGES ON DATABASE currency_exchange_db TO wizy_user;
 
 CREATE TABLE IF NOT EXISTS currency
 (
-    id        INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    code      VARCHAR(3) UNIQUE  NOT NULL,
-    full_name VARCHAR(50) UNIQUE NOT NULL,
-    sign      VARCHAR(4) UNIQUE  NOT NULL
+    id   INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code VARCHAR(3) UNIQUE  NOT NULL,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    sign VARCHAR(4) UNIQUE  NOT NULL
 );
 
 CREATE UNIQUE INDEX currency_index
@@ -36,10 +36,13 @@ CREATE TABLE IF NOT EXISTS exchanger
 CREATE UNIQUE INDEX exchanger_pair_index
     ON exchanger (base_currency_id, target_currency_id);
 
-insert into currency (code, full_name, sign)
+insert into currency (code, name, sign)
 values ('USD', 'United States dollar', '$'),
-       ('EUR', 'Euro', '€');
+       ('EUR', 'Euro', '€'),
+       ('CYN', 'China', 'CH'),
+       ('RUB', 'Деревянный', 'р.');
 
 insert into exchanger (base_currency_id, target_currency_id, rate)
 values (1, 2, 0.85),
-       (2, 1, 1.18);
+       (1, 3, 5),
+       (1, 4, 0.0090);

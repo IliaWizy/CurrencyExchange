@@ -1,4 +1,4 @@
-package infrastructure.filter
+package controller.filter
 
 import jakarta.servlet.Filter
 import jakarta.servlet.FilterChain
@@ -7,7 +7,7 @@ import jakarta.servlet.ServletResponse
 import jakarta.servlet.annotation.WebFilter
 
 @WebFilter("/*")
-class ResponseHandlingFilter : Filter {
+class EncodingFilter : Filter {
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
         response?.characterEncoding = "UTF-8"
         response?.contentType = "application/json"

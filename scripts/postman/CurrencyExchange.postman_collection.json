@@ -10,7 +10,7 @@
 			"name": "exchange",
 			"item": [
 				{
-					"name": "ok 200",
+					"name": "ok 200 USD to EUR - type 1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -34,6 +34,68 @@
 								{
 									"key": "amount",
 									"value": "10.00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ok 200 BA - type 2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/exchange?from=RUB&to=EUR&amount=1.00",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"exchange"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "RUB"
+								},
+								{
+									"key": "to",
+									"value": "EUR"
+								},
+								{
+									"key": "amount",
+									"value": "1.00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ok 200 USD-A to USD-B - type3",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/exchange?from=RUB&to=EUR&amount=1000.00",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"exchange"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "RUB"
+								},
+								{
+									"key": "to",
+									"value": "EUR"
+								},
+								{
+									"key": "amount",
+									"value": "1000.00"
 								}
 							]
 						}
